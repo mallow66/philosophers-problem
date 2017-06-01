@@ -7,12 +7,17 @@ public class Main {
 
     public static void main(String[] args){
 
+        // creating an array of 5 philisophers :
         Philosopher[] philosophers = new Philosopher[5];
+        //creating an array of 5 forks :
         Fork[] forks = new Fork[5];
 
+        //creating the forks objects :
         for(int i= 0; i<5; i++){
             forks[i] = new Fork("Fork"+(i+1));
         }
+
+        //creating the objects of the philosophers :
 
         philosophers[0] = new Philosopher("Philosopher 1", forks[0], forks[1]);
         philosophers[1] = new Philosopher("Philosopher 2", forks[1], forks[2]);

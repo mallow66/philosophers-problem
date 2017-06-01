@@ -28,7 +28,7 @@ public class Philosopher extends Thread{
         System.out.println("I am  "+ name +", and I just got the "+ rightFork.getName());
         leftFork.take();
         System.out.println("I am  "+ name +", and I just got the "+ leftFork.getName());
-        System.out.println("Eating ...");
+        System.out.println(name+" :: Eating ... ");
         Thread.sleep(2000);
         System.out.println("I am"+ name+ " and I just finished eating");
         rightFork.release();
