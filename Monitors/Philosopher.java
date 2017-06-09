@@ -9,35 +9,37 @@ public class Philosopher extends Thread {
     private Fork rightFork;
     private Fork leftFork;
 
+    public Philosopher(String name, Fork rightFork, Fork leftFork){
+        this.name = name;
+        this.rightFork = rightFork;
+        this.leftFork = leftFork;
+    }
+
 
 
     public void think() throws InterruptedException{
+        System.out.println("I am "+name +" and i'm thinking ...");
         Thread.sleep(1000);
+
     }
 
 
     public void eat() throws InterruptedException{
-        think();
         System.out.println("I am "+name+", Waiting for"+rightFork);
-        while(rightFork.isTaken()){
+       rightFork.take();
+       System.out.println("I am "+name+", and just took the "+rightFork);
 
-        }
-        System.out.println("I am "+name+" just took "+rightFork);
-        rightFork.take();
         System.out.println("I am "+name+", Waiting for"+leftFork);
-        while(leftFork.isTaken()){
-        }
-        System.out.println("I am "+name+" just took "+rightFork);
         leftFork.take();
+        System.out.println("I am "+name+", and just took the r"+leftFork);
 
         System.out.println("Iam "+name+" and I am eating ...!" );
         Thread.sleep(2000);
-        System.out.println("Iam "+name+" and I just finished eating ...!" );
-
-        System.out.println("Iam "+name+" and I just release "+rightFork );
-        rightFork.release();
+        System.out.println("Iam "+name+" and I just finished eating ......................!" );
         System.out.println("Iam "+name+" and I just release "+leftFork );
         leftFork.release();
+        System.out.println("Iam "+name+" and I just release "+rightFork );
+        rightFork.release();
 
     }
 
@@ -45,6 +47,7 @@ public class Philosopher extends Thread {
     @Override
     public void run(){
         try {
+            for (int i=0; i<5; i++)
             eat();
         } catch (InterruptedException e) {
             e.printStackTrace();

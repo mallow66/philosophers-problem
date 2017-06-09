@@ -6,28 +6,45 @@ package philosophersProblem.Monitors;
 public class Fork {
 
     private String name;
-    private boolean taken;
+    private Boolean taken;
 
     public Fork(String name){
         this.name = name;
         this.taken= false;
+
     }
 
 
 
-    public synchronized void take(){
-        taken = true;
+    public   void take() throws InterruptedException {
+        while(taken){
+           Thread.sleep(2);
+        }
+        synchronized (taken){taken = true;
+        }
+
+
+
+
     }
 
-    public synchronized void release(){
-        taken = false;
+    public   void release(){
+
+        synchronized (taken){
+            taken  = false;
+        }
+
+
     }
 
     public boolean isTaken() {
         return taken;
     }
 
-    public void setTaken(boolean taken) {
-        this.taken = taken;
+    @Override
+    public String toString(){
+        return name;
     }
+
+
 }
