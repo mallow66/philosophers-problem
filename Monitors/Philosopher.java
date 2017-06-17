@@ -36,10 +36,12 @@ public class Philosopher extends Thread {
         System.out.println("Iam "+name+" and I am eating ...!" );
         Thread.sleep(2000);
         System.out.println("Iam "+name+" and I just finished eating ......................!" );
-        System.out.println("Iam "+name+" and I just release "+leftFork );
+
         leftFork.release();
-        System.out.println("Iam "+name+" and I just release "+rightFork );
+        System.out.println("Iam "+name+" and I just release "+leftFork );
+
         rightFork.release();
+        System.out.println("Iam "+name+" and I just release "+rightFork );
 
     }
 
@@ -47,7 +49,6 @@ public class Philosopher extends Thread {
     @Override
     public void run(){
         try {
-            for (int i=0; i<5; i++)
             eat();
         } catch (InterruptedException e) {
             e.printStackTrace();

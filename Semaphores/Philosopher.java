@@ -9,6 +9,9 @@ public class Philosopher extends Thread{
     private Fork leftFork;
     private String name;
 
+    private long currentTime;
+
+
 
 
     public Philosopher(){
@@ -24,7 +27,10 @@ public class Philosopher extends Thread{
     //we gonna suppose that eating will take 2 seconds :
 
     public void eat() throws InterruptedException {
+        think();
         rightFork.take();
+        currentTime = System.currentTimeMillis();
+
         System.out.println("I am  "+ name +", and I just got the "+ rightFork.getName());
         leftFork.take();
         System.out.println("I am  "+ name +", and I just got the "+ leftFork.getName());
@@ -35,18 +41,19 @@ public class Philosopher extends Thread{
         System.out.println("I am"+ name+ " and I just released"+ rightFork.getName());
         leftFork.release();
         System.out.println("I am"+ name+ " and I just released"+ leftFork.getName());
-        think();
+
     }
 
     private void think() throws InterruptedException {
         System.out.println("I am "+ name +" And Iam thinking");
-        Thread.sleep(1000);
+        //sleeping for an indeterminate time
+        Thread.sleep((long)(Math.random()*10000 )% 10000);
 
     }
 
     @Override
     public void run() {
-            for (int i=0; i<10; i++)
+
             try {
                 eat();
             } catch (InterruptedException e) {

@@ -7,6 +7,9 @@ public class Fork {
 
     private String name;
     private int value;
+    private long currentTime;
+
+
 
 
 
@@ -19,8 +22,19 @@ public class Fork {
 
     //the philospher who gonna take the fork must wait until value > 0
     public  synchronized void  take() throws InterruptedException {
+        currentTime = System.currentTimeMillis();
         while(value<=0){
             wait();
+            if(System.currentTimeMillis() - currentTime > 10000){
+                notifyAll();
+                System.out.println("just released the fork beceause of the starvation");
+                //wait 1s to retake the fork
+                Thread.sleep(1000);
+                take();
+                System.out.println("Just retaked the fork !");
+                return;
+            }
+
         }
         value --;
     }

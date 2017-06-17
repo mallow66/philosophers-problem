@@ -1,5 +1,7 @@
 package philosophersProblem.Semaphores;
 
+import java.util.Date;
+
 /**
  * Created by brahim on 6/1/17.
  */
@@ -29,5 +31,11 @@ public class Main {
         for (int i=0; i<5; i++){
             philosophers[i].start();
         }
+
+
+
+
+
+
     }
 }

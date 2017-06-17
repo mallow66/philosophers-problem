@@ -18,7 +18,7 @@ public class Fork {
 
     public   void take() throws InterruptedException {
         while(taken){
-           Thread.sleep(2);
+            Thread.sleep(2);
         }
         synchronized (taken){taken = true;
         }
