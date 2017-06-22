@@ -1,50 +1,49 @@
 package philosophersProblem.Monitors;
 
 /**
- * Created by brahim on 6/9/17.
+ * Created by brahim on 6/20/17.
  */
 public class Fork {
 
     private String name;
-    private Boolean taken;
+    //si la Fork est occupé ou non
+    private boolean busy;
+    //refer to the last philosopher who used the fork
+    private Philosophe lastUse;
+
 
     public Fork(String name){
         this.name = name;
-        this.taken= false;
-
+        busy = false;
+        lastUse = null;
     }
 
 
 
-    public   void take() throws InterruptedException {
-        while(taken){
-            Thread.sleep(2);
-        }
-        synchronized (taken){taken = true;
-        }
 
 
-
-
+    public synchronized boolean isBusy(){
+        return busy;
     }
 
-    public   void release(){
-
-        synchronized (taken){
-            taken  = false;
-        }
-
-
+    public synchronized boolean lastUsedBy(Philosophe philosopher){
+        if(lastUse == null)
+            return false;
+        return this.lastUse.equals(philosopher);
     }
 
-    public boolean isTaken() {
-        return taken;
+    public synchronized void take(){
+        busy = true;
+    }
+
+    public  synchronized void release(Philosophe philosophe){
+        busy = false;
+        this.lastUse = philosophe;
     }
 
     @Override
     public String toString(){
         return name;
     }
-
 
 }

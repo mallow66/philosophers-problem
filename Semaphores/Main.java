@@ -16,7 +16,7 @@ public class Main {
 
         Philosophe[] philosophes = new Philosophe[5];
 
-       
+
         Fork[] Forks = new Fork[5];
 
 

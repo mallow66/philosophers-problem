@@ -33,7 +33,7 @@ public class Philosophe extends Thread{
         this.Type = Type;
         this.nbreMange = 0;
 
-        //those two variable are used for the execution of the program at the Main class
+        //those two variables are used for the execution of the program at the Main class
         this.s = s;
         this.j = j;
     }
