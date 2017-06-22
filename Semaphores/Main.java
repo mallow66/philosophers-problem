@@ -36,7 +36,7 @@ public class Main {
         int j = scanner.nextInt();
 
         Scanner scanner2 = new Scanner(System.in);
-        System.out.println("Entrer the number of seconds that will be taken for a philosopher to eat");
+        System.out.println("Entrer the number of seconds that a philosopher will take to eat :");
         while(!scanner2.hasNextInt()){
             System.out.println("Entrer a valid number");
             scanner2 = new Scanner(System.in);

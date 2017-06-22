@@ -9,7 +9,7 @@ public class Fork {
     //si la Fork est occupé ou non
     private boolean busy;
     //refer to the last philosopher who used the fork
-    private Philosophe lastUse;
+    private Philosopher lastUse;
 
 
     public Fork(String name){
@@ -26,7 +26,7 @@ public class Fork {
         return busy;
     }
 
-    public synchronized boolean lastUsedBy(Philosophe philosopher){
+    public synchronized boolean lastUsedBy(Philosopher philosopher){
         if(lastUse == null)
             return false;
         return this.lastUse.equals(philosopher);
@@ -36,7 +36,7 @@ public class Fork {
         busy = true;
     }
 
-    public  synchronized void release(Philosophe philosophe){
+    public  synchronized void release(Philosopher philosophe){
         busy = false;
         this.lastUse = philosophe;
     }

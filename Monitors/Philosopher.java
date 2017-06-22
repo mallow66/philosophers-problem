@@ -3,20 +3,20 @@ package philosophersProblem.Monitors;
 /**
  * Created by brahim on 6/20/17.
  */
-public class Philosophe extends Thread{
+public class Philosopher extends Thread{
 
     private String name;
     private Fork leftFork;
     private Fork rightFork ;
     private int nbreDeFoisMange;
-    //a shared object with the philosophers between them to communicate
+    //a shared object with the Philsopherrs between them to communicate
     private Object lock;
     int j;
     int s;
 
 
 
-    public Philosophe(int s, int j, String name, Fork leftFork, Fork rightFork, Object lock){
+    public Philosopher(int s, int j, String name, Fork leftFork, Fork rightFork, Object lock){
         this.name = name;
         this.leftFork  = leftFork;
         this.rightFork = rightFork;
