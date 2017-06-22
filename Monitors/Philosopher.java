@@ -5,14 +5,26 @@ package philosophersProblem.Monitors;
  */
 public class Philosopher extends Thread {
 
+    public enum State{THINK, EAT }
+
     private String name;
     private Fork rightFork;
     private Fork leftFork;
+    private State state;
 
-    public Philosopher(String name, Fork rightFork, Fork leftFork){
+
+    private Philosopher rightPhilosopher, leftPhilosopher;
+
+    public Philosopher(String name){
         this.name = name;
-        this.rightFork = rightFork;
-        this.leftFork = leftFork;
+    }
+
+    public Philosopher(String name,Philosopher rightPhilosopher, Philosopher leftPhilosopher){
+        this.name = name;
+        this.rightPhilosopher = rightPhilosopher;
+        this.leftPhilosopher = leftPhilosopher;
+        this.state = State.THINK;
+
     }
 
 
@@ -23,27 +35,49 @@ public class Philosopher extends Thread {
 
     }
 
+    private synchronized void takeForks() throws InterruptedException{
+        while(rightPhilosopher.isEating() || leftPhilosopher.isEating()){
+            this.wait();
+        }
 
-    public void eat() throws InterruptedException{
-        System.out.println("I am "+name+", Waiting for"+rightFork);
-       rightFork.take();
-       System.out.println("I am "+name+", and just took the "+rightFork);
-
-        System.out.println("I am "+name+", Waiting for"+leftFork);
-        leftFork.take();
-        System.out.println("I am "+name+", and just took the r"+leftFork);
-
-        System.out.println("Iam "+name+" and I am eating ...!" );
-        Thread.sleep(2000);
-        System.out.println("Iam "+name+" and I just finished eating ......................!" );
-
-        leftFork.release();
-        System.out.println("Iam "+name+" and I just release "+leftFork );
-
-        rightFork.release();
-        System.out.println("Iam "+name+" and I just release "+rightFork );
+        state = State.EAT;
 
     }
+
+    private synchronized  void releaseForks(){
+        state = State.THINK;
+        if(!rightPhilosopher.isEating() || !leftPhilosopher.isEating())
+            notifyAll();
+
+
+    }
+
+
+    public  void eat() throws InterruptedException{
+           takeForks();
+
+            System.out.println("Iam "+name+" and I am eating ...!" );
+            Thread.sleep(2000);
+            System.out.println("Iam "+name+" and I just finished eating ......................!" );
+
+            releaseForks();
+
+
+    }
+
+
+
+    public boolean isEating(){
+        if(state == State.EAT)
+            return true;
+        return false;
+    }
+
+    public void setNeighbors(Philosopher rightPhilosopher, Philosopher leftPhilosopher){
+        this.rightPhilosopher = rightPhilosopher;
+        this.leftPhilosopher = leftPhilosopher;
+    }
+
 
 
     @Override
